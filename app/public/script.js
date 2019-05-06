@@ -8,7 +8,21 @@ const searchState = async searchText => {
 
        return item.name.match(regex) || item.abbr.match(regex)
    }) 
-   console.log(matches)
+   !searchText.length && (matches = [])
+   outPutHtml(matches)
+}
+
+
+const outPutHtml = matches => {
+    if(matches.length > 0){
+       const html = matches.map(match => {
+          return `<div class="card card-body mb-1">
+              <h4>${match.name} (${match.abbr}) <span class="text-primary">${match.capital}</span></h4>
+              <small>${match.lat} / ${match.long}</small>
+              </div>`
+       }).join('')
+       match_list.innerHTML = html
+    }
 }
 
 search.addEventListener('input',() => {
